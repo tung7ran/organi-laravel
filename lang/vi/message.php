@@ -1,0 +1,21 @@
+<?php
+return [
+    'success'                                   => 'Thành công!',
+    'failed'                                    => 'Thất bại!',
+    'create_success'                            => 'Thêm mới thành công!',
+    'update_success'                            => 'Cập nhật thành công!',
+    'delete_success'                            => 'Xóa thành công!',
+    'create_failed'                             => 'Thêm mới thất bại!',
+    'update_failed'                             => 'Cập nhật thất bại!',
+    'delete_failed'                             => 'Xóa thất bại!',
+    'something_went_wrong'                      => 'Có lỗi sai!',
+    'you_do_not_have_permission'                => 'Bạn không có quyền.',
+    'account_does_not_exists'                   => 'Tài khoản không tồn tại',
+    'you_need_to_authenticate_your_account'     => 'Bạn cần xác thực tài khoản.',
+    'we_sent_authenticate_code_to_your_email'   => 'Chúng tôi đã gửi mã xác thực vào email của bạn.',
+    'please_check_and_do_it'                    => 'Hãy kiểm tra và làm theo hướng dẫn.',
+    'account_or_password_is_wrong'              => 'Tài khoản hoặc mật khẩu không đúng.',
+    'register_success'                          => 'Đăng ký thành công!',
+    'logout_success'                            => 'Đăng xuất thành công',
+    'app_forgot_password_success'               => 'Bạn vui lòng kiểm tra Email hoặc SMS để lấy mật khẩu!',
+    ];
