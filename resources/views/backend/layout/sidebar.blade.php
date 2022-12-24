@@ -10,7 +10,7 @@
             <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="{{ route('backend.home') }}" class="d-block">Alexander Pierce</a>
         </div>
     </div>
 
@@ -64,13 +64,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('product.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách sản phẩm</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('product.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm sản phẩm</p>
                         </a>
@@ -87,13 +87,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('blog.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách tin tức</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('blog.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm tin tức</p>
                         </a>
@@ -110,17 +110,17 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('order.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách đơn hàng</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <!-- <li class="nav-item">
+                        <a href="{{ route('order.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm tin tức</p>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li class="nav-item">
@@ -133,13 +133,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('decentralization.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách các quyền</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('decentralization.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm quyền</p>
                         </a>
@@ -156,9 +156,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('banner.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Quản lý banner</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('banner.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm banner</p>
                         </a>
                     </li>
                 </ul>
@@ -173,11 +179,12 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('feedback.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách phản hồi</p>
                         </a>
                     </li>
+
                 </ul>
             </li>
         </ul>
