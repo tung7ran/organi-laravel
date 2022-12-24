@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,8 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'backend', 'middleware' => 'auth'], function () {
         Route::get('/home', 'HomeController@index')->name('backend.home');
         Route::resource('user', 'UsersController');
+        Route::resource('product', 'ProductsController');
+
     });
 });
 
