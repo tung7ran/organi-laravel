@@ -23,7 +23,6 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->integer('discount');
             $table->text('product_description');
-            $table->rememberToken();
             $table->timestamps();
 		});
 	}
