@@ -19,6 +19,8 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::get('/home', 'HomeController@index')->name('backend.home');
         Route::resource('user', 'UsersController');
         Route::resource('post', 'PostsController');
+        Route::resource('product', 'ProductsController');
+
 
 
     });
