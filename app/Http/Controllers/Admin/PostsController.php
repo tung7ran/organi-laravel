@@ -1,6 +1,6 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
-use DB;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostCreateRequest;
@@ -9,6 +9,7 @@ use App\Repositories\PostRepository;
 use App\Validators\PostValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
+use App\Models\Post;
 
 /**
  * Class PostsController.
@@ -48,13 +49,12 @@ class PostsController extends Controller
     public function index()
     {
         $data  = $this->repository->paginate(request()->all());
-        return view($this->partView. '.index', compact('data'));
+        return view($this->partView . '.index', compact('data'));
     }
 
     public function create()
     {
-        $userID = DB::table('users')->select('id', 'user_name')->get();
-        return view($this->partView . '.create', compact('userID'));
+        return view($this->partView . '.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -70,8 +70,22 @@ class PostsController extends Controller
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $post = $this->repository->create($request->all());
-            $input               = $request->all();
+            // $post = $this->repository->create($request->all());
+            // $input               = $request->all();
+            $post = new Post;
+            $post->name = $request->input('name');
+            $post->slug = $request->input('slug');
+            $post->type = $request->type;
+            $post->desc = $request->desc;
+            $post->content = $request->content;
+            if ($request->hasfile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $file_image = time() . '.' . $extension;
+                $file->move('uploads/posts/', $file_image);
+                $post->image = $file_image;
+            }
+            $post->save();
             $response = [
                 'message' => trans('messages.create_success'),
                 'data'    => $post->toArray(),
@@ -82,8 +96,7 @@ class PostsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
-
+            return redirect()->route('post.index')->with('message', trans('messages.create_success'));
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -114,7 +127,7 @@ class PostsController extends Controller
             ]);
         }
 
-        return view('posts.show', compact('post'));
+        return view($this->partView . '.show', compact('post'));
     }
 
     /**
@@ -150,7 +163,7 @@ class PostsController extends Controller
             $post = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Post updated.',
+                'message' => trans('messages.update_success'),
                 'data'    => $post->toArray(),
             ];
 
@@ -159,7 +172,7 @@ class PostsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->route('post.index')->with('message',  trans('messages.update_success'));
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -189,7 +202,7 @@ class PostsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Post deleted.',
+                'message' => trans('messages.delete_success'),
                 'deleted' => $deleted,
             ]);
         }

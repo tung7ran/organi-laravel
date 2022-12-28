@@ -9,7 +9,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('backend.home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Post Add</li>
                 </ol>
             </div>
@@ -51,20 +51,24 @@
                         <textarea id="content" class="form-control" rows="4" name="content" value="{{ old('content') }}"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="post-image">Image</label>
-                        <input type="file" id="post-image" class="form-control" name="image" value="{{ old('image') }}">
-                    </div>
-                    <div class="form-group">
                         <label for="post-type">Type</label>
-                        <select id="post-type" class="form-control custom-select" name="type" >
+                        <select id="post-type" class="form-control custom-select" name="type">
                             <option selected disabled>Select one</option>
                             @foreach (\App\Models\Post::$postType as $key => $value)
-                                <option value="{{ $key }}">
-                                    {{ $value }}
-                                </option>
+                            <option value="{{ $key }}">
+                                {{ $value }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group" style="width: calc(100% / 5); ">
+                        <label for="post-image" class="border border-secondary px-5" style="width: 70%; text-align: center;">Image <i class="nav-icon fas fa-plus"></i></label>
+                        <input type="file" hidden id="post-image" class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
+                        <div class="preview-image">
+                            <img id="output" alt="" style="width: 100%;">
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -81,3 +85,9 @@
 {{ Form::close() }}
 <!-- /.content -->
 @endsection
+<script>
+    var loadFile = (e) => {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
