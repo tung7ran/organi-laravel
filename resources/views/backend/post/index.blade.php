@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('backend.home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Post</li>
                 </ol>
             </div>
@@ -35,7 +35,7 @@
                 </button>
             </div>
         </div>
-        <div class="card-body p-0">
+        <div class="card-body p-0" style="overflow-x:auto;">
             <table class="table table-striped projects">
                 <thead>
                     <tr>
@@ -74,15 +74,14 @@
                         <td>{{ $value['desc'] }}</td>
                         <td>{{ $value['content'] }}</td>
                         <td>
-                           <img src="{{ $value['image'] }}" alt="">
+                        <img src="{{ asset('uploads/posts/'.$value->image) }}" alt="" class="table-avatar rounded-0">
                         </td>
                         <td >
                         {{ $value['type'] }}
                         </td>
                         <td class="project-actions">
                             <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
+                                <i class="fas fa-folder"></i>
                                 View
                             </a>
                             <a class="btn btn-info btn-sm" href="{{ route('post.edit', $value->id) }}">

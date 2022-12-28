@@ -9,14 +9,14 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('backend.home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Cập nhật Post</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-{{ Form::open(array('route' => ['post.update', $post->id], 'method' => 'PUT')) }}
+{{ Form::open(array('route' => ['post.update', $post->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data')) }}
 
 <!-- Main content -->
 <section class="content">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label for="post-type">Type</label>
-                        <select id="post-type" class="form-control custom-select" name="type" >
+                        <select id="post-type" class="form-control custom-select" name="type" value="{{ $post->type }}">
                             <option selected disabled>Select one</option>
                             @foreach (\App\Models\Post::$postType as $key => $value)
                                 <option value="{{ $key }}">
@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-12">
             <a href="#" class="btn btn-secondary">Cancel</a>
-            <input type="submit" value="Create new Project" class="btn btn-success float-right">
+            <input type="submit" value="Update new Project" class="btn btn-success float-right">
         </div>
     </div>
 </section>
