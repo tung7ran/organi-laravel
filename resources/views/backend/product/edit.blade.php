@@ -58,10 +58,11 @@
                         <label for="product_content">Project Content</label>
                         <textarea id="product_content" class="form-control" rows="4" name="content">{{ $product->content }}</textarea>
                     </div>
-                    <div class="row" style="gap: 5px">
+                    <div class="row" style="gap: 5px;">
                         <div class="form-group">
                             <label role="button" class="border border-secondary px-3" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ $product->image }}">
+                            <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ $product->image }}" onchange="loadFile(this)">
+
                         </div>
                         <div class="form-group">
                             <label role="button" class="border border-secondary px-3" for="img_content">Image Content <i class="nav-icon fas fa-plus"></i></label>
@@ -81,6 +82,10 @@
                         </div>
 
                     </div>
+
+                    <div class="preview-image">
+                        <img id="output" alt="" style="width: 20%; margin: 0 auto;">
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -90,7 +95,7 @@
     <div class="row">
         <div class="col-12">
             <a href="#" class="btn btn-secondary">Huỷ</a>
-            <input type="submit" value="Tạo mới Product" class="btn btn-success float-right">
+            <input type="submit" value="Update Product" class="btn btn-success float-right">
         </div>
     </div>
 </section>
@@ -98,3 +103,9 @@
 {{ Form::close() }}
 <!-- /.content -->
 @endsection
+<script>
+    var loadFile = (e) => {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

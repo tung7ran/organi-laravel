@@ -59,7 +59,7 @@
                             Image
                         </th>
 
-                        <th>active</th>
+                        <th>Active</th>
                     </tr>
                 </thead>
                 <tbody>
