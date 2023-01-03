@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Repositories\AuthRepository;
 use App\Validators\AuthValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +16,6 @@ use Illuminate\Support\Facades\Validator;
  */
 class AuthsController extends Controller
 {
-    /**
-     * @var AuthRepository
-     */
     protected $repository;
 
     const EMAIL                = 'email';
@@ -28,13 +24,11 @@ class AuthsController extends Controller
     /**
      * AuthsController constructor.
      *
-     * @param AuthRepository $repository
      * @param AuthValidator $validator
      */
-    public function __construct(AuthRepository $repository, Request $request, User $model)
+    public function __construct(Request $request, User $model)
     {
         $this->request    = $request;
-        $this->repository = $repository;
         $this->model      = $model;
         $this->middleware('auth', ['except' => ['postLogin', 'getLogin', 'getActiveUser', 'postForgot', 'getResetPassword', 'postResetPassword']]);
     }
