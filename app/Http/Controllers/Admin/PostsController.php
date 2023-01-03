@@ -73,9 +73,9 @@ class PostsController extends Controller
             $input     = $request->all();
             $input['name'] = $request->input('name');
             $input['slug'] = $request->input('slug');
-            $input['type'] = $request->type;
-            $input['desc'] = $request->desc;
-            $input['content'] = $request->content;
+            $input['type'] = $request->NAME;
+            $input['desc'] = $request->DESC;
+            $input['content'] = $request->CONTENT;
             if ($request->hasfile('image')) {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
