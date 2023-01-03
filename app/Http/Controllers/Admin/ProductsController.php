@@ -259,7 +259,7 @@ class ProductsController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Product deleted.');
+        return redirect()->back()->with('message', trans('messages.delete_success'));
     }
 
 }
