@@ -64,8 +64,7 @@ class PostsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(PostCreateRequest $request)
-    {
+    public function store(PostCreateRequest $request) {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
@@ -114,8 +113,7 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $post = $this->repository->find($id);
 
         if (request()->wantsJson()) {
@@ -135,8 +133,7 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $post = $this->repository->find($id);
         $types = $post->type;
         return view($this->partView . '.edit', compact('post', 'types'));
@@ -152,8 +149,7 @@ class PostsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(PostUpdateRequest $request, $id)
-    {
+    public function update(PostUpdateRequest $request, $id) {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
@@ -193,8 +189,7 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $deleted = $this->repository->delete($id);
 
         if (request()->wantsJson()) {
@@ -205,6 +200,6 @@ class PostsController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Post deleted.');
+        return redirect()->back()->with('message', trans('messages.delete_success'));
     }
 }

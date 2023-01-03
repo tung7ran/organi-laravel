@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('slug')->nullable();
             $table->text('desc')->nullable();
             $table->text('content')->nullable();
+            $table->integer('category_id')->nullable();
             $table->text('image')->nullable();
             $table->text('type')->nullable();
             $table->integer('hot')->nullable();
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keyword')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

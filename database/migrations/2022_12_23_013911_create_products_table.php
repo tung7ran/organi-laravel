@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->text('slug')->nullable();
             $table->text('desc')->nullable();
             $table->text('content')->nullable();
+            $table->integer('productCat_id')->nullable();
             $table->text('price')->nullable();
             $table->text('sale_price')->nullable();
             $table->integer('sale')->nullable();

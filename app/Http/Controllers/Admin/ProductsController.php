@@ -65,20 +65,18 @@ class ProductsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(ProductCreateRequest $request)
-    {
+    public function store(ProductCreateRequest $request) {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            // $product = $this->repository->create($request->all());
-            // $input               = $request->all();
-            $product = new Product;
-            $product->name = $request->input('name');
-            $product->slug = $request->input('slug');
-            $product->price = $request->input('price');
-            $product->sale_price = $request->input('sale_price');
-            $product->desc = $request->desc;
-            $product->content=$request->content;
+            $product = $this->repository->create($request->all());
+            $input               = $request->all();
+            $input['name'] = $request->input('name');
+            $input['slug'] = $request->input('slug');
+            $input['price'] = $request->input('price');
+            $input['sale_price'] = $request->input('sale_price');
+            $input['desc'] = $request->DESC;
+            $input['content'] =$request->CONTENT;
 
             if($request->hasfile('image')){
                 $file = $request->file('image');
@@ -115,7 +113,9 @@ class ProductsController extends Controller
                 $file->move('uploads/image-more/', $file_image);
                 $product->more_image = $file_image;
             }
+
             $product->save();
+
             $response = [
                 'message' => trans('messages.create_success'),
                 'data'    => $product->toArray(),
@@ -139,6 +139,7 @@ class ProductsController extends Controller
         }
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -146,8 +147,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $product = $this->repository->find($id);
 
         if (request()->wantsJson()) {
@@ -167,8 +167,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $product = $this->repository->find($id);
 
         return view($this->partView . '.edit', compact('product'));
@@ -184,8 +183,7 @@ class ProductsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(ProductUpdateRequest $request, $id)
-    {
+    public function update(ProductUpdateRequest $request, $id) {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
@@ -223,8 +221,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $deleted = $this->repository->delete($id);
 
         if (request()->wantsJson()) {
@@ -235,7 +232,7 @@ class ProductsController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Product deleted.');
+        return redirect()->back()->with('message', trans('messages.delete_success'));
     }
 
 }
