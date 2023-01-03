@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('backend.home') }}">Home</a></li>
                         <li class="breadcrumb-item active">Danh sách người dùng</li>
                     </ol>
                 </div>
@@ -34,13 +34,10 @@
                     </button>
                 </div>
             </div>
-            <div class="card-body p-0">
+            <div class="card-body p-0" style="overflow-x:auto;">
                 <table class="table table-striped projects">
                     <thead>
                     <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
                         <th style="width: 10%">
                             STT
                         </th>
@@ -61,9 +58,6 @@
                     <tbody>
                     @foreach($data as $key => $value)
                     <tr>
-                        <td>
-                            #
-                        </td>
                         <td>
                             {{ $key + 1 }}
                         </td>
