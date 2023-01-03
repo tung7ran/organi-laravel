@@ -114,7 +114,7 @@ class ProductsController extends Controller
                 $product->more_image = $file_image;
             }
 
-            $product->save();
+           $product = $this->repository->create($input);
 
             $response = [
                 'message' => trans('messages.create_success'),
