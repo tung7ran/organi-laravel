@@ -65,8 +65,7 @@ class ProductsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(ProductCreateRequest $request)
-    {
+    public function store(ProductCreateRequest $request) {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
@@ -137,8 +136,7 @@ class ProductsController extends Controller
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
-    public function storeImage(Request $request)
-	{
+    public function storeImage(Request $request) {
 		if($request->file('image')){
 
             $img = $request->file('image');
@@ -170,8 +168,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $product = $this->repository->find($id);
 
         if (request()->wantsJson()) {
@@ -191,8 +188,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $product = $this->repository->find($id);
 
         return view($this->partView . '.edit', compact('product'));
@@ -208,8 +204,7 @@ class ProductsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(ProductUpdateRequest $request, $id)
-    {
+    public function update(ProductUpdateRequest $request, $id) {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
@@ -247,8 +242,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $deleted = $this->repository->delete($id);
 
         if (request()->wantsJson()) {
