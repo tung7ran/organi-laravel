@@ -113,7 +113,9 @@ class ProductsController extends Controller
                 $file->move('uploads/image-more/', $file_image);
                 $product->more_image = $file_image;
             }
-            $product     = $this->repository->create($input);
+
+           $product = $this->repository->create($input);
+
             $response = [
                 'message' => trans('messages.create_success'),
                 'data'    => $product->toArray(),
@@ -136,31 +138,8 @@ class ProductsController extends Controller
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
-    public function storeImage(Request $request) {
-		if($request->file('image')){
 
-            $img = $request->file('image');
 
-            //here we are geeting productid alogn with an image
-            $productid = $request->productid;
-
-            $imageName = strtotime(now()).rand(11111,99999).'.'.$img->getClientOriginalExtension();
-            $product_image = new Product();
-            $original_name = $img->getClientOriginalName();
-            $product_image->image = $imageName;
-
-            if(!is_dir(public_path() . '/uploads/images/')){
-                mkdir(public_path() . '/uploads/images/', 0777, true);
-            }
-
-        $request->file('image')->move(public_path() . '/uploads/images/', $imageName);
-
-        // we are updating our image column with the help of user id
-        $product_image->where('id', $productid)->update(['image'=>$imageName]);
-
-        return response()->json(['status'=>"success",'imgdata'=>$original_name,'productid'=>$productid]);
-        }
-	}
     /**
      * Display the specified resource.
      *

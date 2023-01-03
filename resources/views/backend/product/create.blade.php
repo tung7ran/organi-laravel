@@ -18,7 +18,7 @@
 </section>
 
 <!-- Main content -->
-{{ Form::open(array('route' => 'product.store', 'enctype' => 'multipart/form-data', 'name'=>'demoform', 'id'=>'demoform', 'class'=>'dropzone')) }}
+{{ Form::open(array('route' => 'product.store', 'enctype' => 'multipart/form-data')) }}
 
 <section class="content">
     <div class="row">
@@ -59,13 +59,8 @@
                         <label for="product_content">Project Content</label>
                         <textarea id="product_content" class="form-control" rows="4" name="content" value="{{ old('content') }}"></textarea>
                     </div>
-                    <div class="form-group">
-                        <div id="dropzoneDragArea" class="dz-default dz-message dropzoneDragArea">
-                            <span>Upload file</span>
-                        </div>
-                        <div class="dropzone-previews"></div>
-                    </div>
-                    <!-- <div class="row">
+
+                    <div class="row">
                         <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
                             <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
                             <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
@@ -89,7 +84,7 @@
                             <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="more_image">More Image <i class="nav-icon fas fa-plus"></i></label>
                             <input type="file" id="more_image" hidden class="form-control" name="more_image" value="{{ old('more_image') }}">
                         </div>
-                    </div> -->
+                    </div>
 
                 </div>
                 <!-- /.card-body -->
@@ -109,92 +104,10 @@
 <!-- /.content -->
 @endsection
 
-<!-- <script>
+<script>
     var loadFile = (e) => {
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);
     }
-</script> -->
-<script>
-    Dropzone.autoDiscover = true;
-    // Dropzone.options.demoform = false;
-    let token = $('meta[name="csrf-token"]').attr('content');
-    $(function() {
-        var myDropzone = new Dropzone("div#dropzoneDragArea", {
-            paramName: "image",
-            url: "{{ url('/storeimgae') }}",
-            previewsContainer: 'div.dropzone-previews',
-            addRemoveLinks: true,
-            autoProcessQueue: false,
-            uploadMultiple: false,
-            parallelUploads: 1,
-            maxFiles: 1,
-            params: {
-                _token: token
-            },
-            // The setting up of the dropzone
-            init: function() {
-                var myDropzone = this;
-                //form submission code goes here
-                $("form[name='demoform']").submit(function(event) {
-                    //Make sure that the form isn't actully being sent.
-                    event.preventDefault();
-
-                    URL = $("#demoform").attr('action');
-                    formData = $('#demoform').serialize();
-                    $.ajax({
-                        type: 'POST',
-                        url: URL,
-                        data: formData,
-                        success: function(result) {
-                            if (result.status == "success") {
-                                // fetch the useid
-                                var productid = result.user_id;
-                                $("#productid").val(productid); // inseting productid into hidden input field
-                                //process the queue
-                                myDropzone.processQueue();
-                            } else {
-                                console.log("error");
-                            }
-                        }
-                    });
-                });
-
-                //Gets triggered when we submit the image.
-                this.on('sending', function(file, xhr, formData) {
-                    //fetch the user id from hidden input field and send that productid with our image
-                    let productid = document.getElementById('productid').value;
-                    formData.append('productid', productid);
-                });
-
-                this.on("success", function(file, response) {
-                    //reset the form
-                    $('#demoform')[0].reset();
-                    //reset dropzone
-                    $('.dropzone-previews').empty();
-                });
-
-                this.on("queuecomplete", function() {
-
-                });
-
-                // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
-                // of the sending event because uploadMultiple is set to true.
-                this.on("sendingmultiple", function() {
-                    // Gets triggered when the form is actually being sent.
-                    // Hide the success button or the complete form.
-                });
-
-                this.on("successmultiple", function(files, response) {
-                    // Gets triggered when the files have successfully been sent.
-                    // Redirect user or notify of success.
-                });
-
-                this.on("errormultiple", function(files, response) {
-                    // Gets triggered when there was an error sending the files.
-                    // Maybe show form again, and notify user of error
-                });
-            }
-        });
-    });
 </script>
+
