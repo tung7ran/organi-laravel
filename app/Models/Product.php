@@ -23,32 +23,34 @@ class Product extends Model implements Transformable
      * @var array
      */
 
-    const NAME = 'name';
-    const SLUG = 'slug';
-    const DESCRIPTION = 'desc';
-    const CONTENT = 'content';
-    const PRICE = 'price';
-    const SALE_PRICE = 'sale_price';
-    const SALE = 'sale';
-    const IMAGE = 'image';
-    const IMAGE_CONTENT = 'image_content';
-    const IMAGE_INGREDIENT = 'image_ingredient';
-    const IMAGE_USE = 'image_use';
-    const MORE_IMAGE = 'more_image';
-    const HOT = 'hot';
-    const IS_SALE = 'is_sale';
-    const STATUS = 'status';
-    const META_TITLE = 'meta_title';
-    const META_DESCRIPTION = 'meta_description';
-    const META_KEYWORD = 'meta_keyword';
-    const CREATE_AT     = 'create_at';
-    const UPDATED_AT   = 'updated_at';
+    const NAME              = 'name';
+    const SLUG              = 'slug';
+    const DESCRIPTION       = 'desc';
+    const CONTENT           = 'content';
+    const PRODUCTCAT_ID     = 'productCat_id';
+    const PRICE             = 'price';
+    const SALE_PRICE        = 'sale_price';
+    const SALE              = 'sale';
+    const IMAGE             = 'image';
+    const IMAGE_CONTENT     = 'image_content';
+    const IMAGE_INGREDIENT  = 'image_ingredient';
+    const IMAGE_USE         = 'image_use';
+    const MORE_IMAGE        = 'more_image';
+    const HOT               = 'hot';
+    const IS_SALE           = 'is_sale';
+    const STATUS            = 'status';
+    const META_TITLE        = 'meta_title';
+    const META_DESCRIPTION  = 'meta_description';
+    const META_KEYWORD      = 'meta_keyword';
+    const CREATE_AT         = 'create_at';
+    const UPDATED_AT        = 'updated_at';
 
     protected $fillable = [
         self::NAME,
         self::SLUG,
         self::DESCRIPTION,
         self::CONTENT,
+        self::PRODUCTCAT_ID,
         self::PRICE,
         self::SALE_PRICE,
         self::SALE,

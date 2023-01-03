@@ -19,22 +19,23 @@ class Post extends Model implements Transformable
 {
     use TransformableTrait, HasApiTokens, HasFactory, Notifiable;
 
-    const NAME = 'name';
-    const SLUG = 'slug';
-    const DESCRIPTION = 'desc';
-    const CONTENT = 'content';
-    const IMAGE = 'image';
-    const TYPE = 'type';
-    const BASIC = 1;
-    const PRO = 2;
-    const HOT = 'hot';
-    const STATUS = 'status';
-    const USER_ID = 'user_id';
-    const META_TITLE = 'meta_title';
-    const META_DESCRIPTION = 'meta_description';
-    const META_KEYWORD = 'meta_keyword';
-    const CREATE_AT     = 'create_at';
-    const UPDATED_AT   = 'updated_at';
+    const NAME              = 'name';
+    const SLUG              = 'slug';
+    const DESCRIPTION       = 'desc';
+    const CONTENT           = 'content';
+    const CATEGORY_ID       = 'category_id';
+    const IMAGE             = 'image';
+    const TYPE              = 'type';
+    const BASIC             = 1;
+    const PRO               = 2;
+    const HOT               = 'hot';
+    const STATUS            = 'status';
+    const USER_ID           = 'user_id';
+    const META_TITLE        = 'meta_title';
+    const META_DESCRIPTION  = 'meta_description';
+    const META_KEYWORD      = 'meta_keyword';
+    const CREATE_AT         = 'create_at';
+    const UPDATED_AT        = 'updated_at';
     /**
      * The attributes that are mass assignable.
      *
@@ -45,6 +46,7 @@ class Post extends Model implements Transformable
         self::SLUG,
         self::DESCRIPTION,
         self::CONTENT,
+        self::CATEGORY_ID,
         self::IMAGE,
         self::TYPE,
         self::HOT,
