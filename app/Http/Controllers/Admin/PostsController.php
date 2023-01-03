@@ -200,6 +200,6 @@ class PostsController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Post deleted.');
+        return redirect()->back()->with('message', trans('messages.delete_success'));
     }
 }
