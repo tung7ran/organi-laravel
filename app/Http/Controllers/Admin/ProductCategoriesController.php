@@ -72,14 +72,14 @@ class ProductCategoriesController extends Controller
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $productCategory = $this->repository->create($request->all());
             $input = $request->all();
             $input['name'] = $request->input('name');
             $input['slug'] = $request->input('slug');
+
             $productCategory     = $this->repository->create($input);
 
             $response = [
-                'message' => 'ProductCategory created.',
+                'message' => trans('messages.create_success'),
                 'data'    => $productCategory->toArray(),
             ];
 
@@ -88,7 +88,7 @@ class ProductCategoriesController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->route('category.index')->with('message', trans('messages.create_success'));
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -133,7 +133,6 @@ class ProductCategoriesController extends Controller
     {
         $productCategory = $this->repository->find($id);
         return view($this->partView . '.edit', compact('productCategory'));
-        // return view('productCategories.edit', compact('productCategory'));
     }
 
     /**
@@ -155,7 +154,7 @@ class ProductCategoriesController extends Controller
             $productCategory = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'ProductCategory updated.',
+                'message' => trans('messages.update_success'),
                 'data'    => $productCategory->toArray(),
             ];
 
@@ -164,7 +163,7 @@ class ProductCategoriesController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->route('category.index')->with('message', $response['message']);
+            return redirect()->route('category.index')->with('message', trans('messages.update_success'));
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
