@@ -1,7 +1,7 @@
 @extends('backend.layout.app')
 @section('content')
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<section class="content-header container">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -60,7 +60,22 @@
                         <textarea id="product_content" class="form-control" rows="4" name="content" value="{{ old('content') }}"></textarea>
                     </div>
 
-                    <div class="row">
+                    <div class="form-group">
+                        <label for="category" class="form-label">Category:</label>
+                        <select name="productCat_id" class="form-control" id="category">
+                            <option value="">-- Select Category --</option>
+                            @foreach($category as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div id="dropzoneDragArea" class="dz-default dz-message dropzoneDragArea">
+                            <span>Upload file</span>
+                        </div>
+                        <div class="dropzone-previews"></div>
+                    </div>
+                    <!-- <div class="row">
                         <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
                             <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
                             <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">

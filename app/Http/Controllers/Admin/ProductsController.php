@@ -9,14 +9,15 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repositories\ProductRepository;
 use App\Validators\ProductValidator;
+use App\Models\Product;
+use App\Models\ProductCategory;
 
 /**
  * Class ProductsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class ProductsController extends Controller
-{
+class ProductsController extends Controller {
     /**
      * @var ProductRepository
      */
@@ -33,8 +34,7 @@ class ProductsController extends Controller
      * @param ProductRepository $repository
      * @param ProductValidator $validator
      */
-    public function __construct(ProductRepository $repository, ProductValidator $validator)
-    {
+    public function __construct(ProductRepository $repository, ProductValidator $validator) {
         $this->repository = $repository;
         $this->validator  = $validator;
         $this->partView   = 'backend.product';
@@ -45,15 +45,14 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 
         $data  = $this->repository->paginate(request()->all());
-        return view($this->partView. '.index', compact('data'));
+        return view($this->partView . '.index', compact('data'));
     }
-    public function create()
-    {
-        return view($this->partView . '.create');
+    public function create() {
+        $category = ProductCategory::all();
+        return view($this->partView . '.create', compact('category'));
     }
     /**
      * Store a newly created resource in storage.
@@ -72,46 +71,47 @@ class ProductsController extends Controller
             $input['slug']          = $request->input('slug');
             $input['price']         = $request->input('price');
             $input['sale_price']    = $request->input('sale_price');
-            $input['desc']          = $request->DESC;
-            $input['content']       = $request->CONTENT;
+            $input['desc']          = $request->desc;
+            $input['content']       = $request->content;
+            $input['productCat_id'] = $request->productCat_id;
 
-            if($request->hasfile('image')){
+            if ($request->hasfile('image')) {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $file_image = time().'.'.$extension;
+                $file_image = time() . '.' . $extension;
                 $file->move('uploads/images/', $file_image);
                 $input['image'] = $file_image;
             }
-            if($request->hasfile('image_content')){
+            if ($request->hasfile('image_content')) {
                 $file = $request->file('image_content');
                 $extension = $file->getClientOriginalExtension();
-                $file_image = time().'.'.$extension;
+                $file_image = time() . '.' . $extension;
                 $file->move('uploads/image-content/', $file_image);
                 $input['image_content'] = $file_image;
             }
-            if($request->hasfile('image_ingredient')){
+            if ($request->hasfile('image_ingredient')) {
                 $file = $request->file('image_ingredient');
                 $extension = $file->getClientOriginalExtension();
-                $file_image = time().'.'.$extension;
+                $file_image = time() . '.' . $extension;
                 $file->move('uploads/image-ingredient/', $file_image);
                 $input['image_ingredient'] = $file_image;
             }
-            if($request->hasfile('image_use')){
+            if ($request->hasfile('image_use')) {
                 $file = $request->file('image_use');
                 $extension = $file->getClientOriginalExtension();
-                $file_image = time().'.'.$extension;
+                $file_image = time() . '.' . $extension;
                 $file->move('uploads/image-use/', $file_image);
                 $input['image_use'] = $file_image;
             }
-            if($request->hasfile('more_image')){
+            if ($request->hasfile('more_image')) {
                 $file = $request->file('more_image');
                 $extension = $file->getClientOriginalExtension();
-                $file_image = time().'.'.$extension;
+                $file_image = time() . '.' . $extension;
                 $file->move('uploads/image-more/', $file_image);
                 $input['more_image'] = $file_image;
             }
 
-           $product = $this->repository->create($input);
+            $product = $this->repository->create($input);
 
             $response = [
                 'message' => trans('messages.create_success'),
@@ -166,8 +166,8 @@ class ProductsController extends Controller
      */
     public function edit($id) {
         $product = $this->repository->find($id);
-
-        return view($this->partView . '.edit', compact('product'));
+        $category = ProductCategory::all();
+        return view($this->partView . '.edit', compact('product', 'category'));
     }
 
     /**
@@ -231,5 +231,4 @@ class ProductsController extends Controller
 
         return redirect()->back()->with('message', trans('messages.delete_success'));
     }
-
 }
