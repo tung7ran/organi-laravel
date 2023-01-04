@@ -67,8 +67,6 @@ class PostsController extends Controller
     public function store(PostCreateRequest $request) {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $post      = $this->repository->create($request->all());
             $input     = $request->all();
             $input['name'] = $request->input('name');
             $input['slug'] = $request->input('slug');
@@ -80,7 +78,7 @@ class PostsController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $file_image = time() . '.' . $extension;
                 $file->move('uploads/posts/', $file_image);
-                $post->image = $file_image;
+                $input['image'] = $file_image;
             }
             $post     = $this->repository->create($input);
             $response = [

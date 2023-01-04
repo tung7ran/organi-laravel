@@ -68,50 +68,48 @@ class ProductsController extends Controller
     public function store(ProductCreateRequest $request) {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $product = $this->repository->create($request->all());
-            $input               = $request->all();
-            $input['name'] = $request->input('name');
-            $input['slug'] = $request->input('slug');
-            $input['price'] = $request->input('price');
-            $input['sale_price'] = $request->input('sale_price');
-            $input['desc'] = $request->DESC;
-            $input['content'] =$request->CONTENT;
+            $input                  = $request->all();
+            $input['name']          = $request->input('name');
+            $input['slug']          = $request->input('slug');
+            $input['price']         = $request->input('price');
+            $input['sale_price']    = $request->input('sale_price');
+            $input['desc']          = $request->DESC;
+            $input['content']       = $request->CONTENT;
 
             if($request->hasfile('image')){
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
                 $file_image = time().'.'.$extension;
                 $file->move('uploads/images/', $file_image);
-                $product->image = $file_image;
+                $input['image'] = $file_image;
             }
             if($request->hasfile('image_content')){
                 $file = $request->file('image_content');
                 $extension = $file->getClientOriginalExtension();
                 $file_image = time().'.'.$extension;
                 $file->move('uploads/image-content/', $file_image);
-                $product->image_content = $file_image;
+                $input['image_content'] = $file_image;
             }
             if($request->hasfile('image_ingredient')){
                 $file = $request->file('image_ingredient');
                 $extension = $file->getClientOriginalExtension();
                 $file_image = time().'.'.$extension;
                 $file->move('uploads/image-ingredient/', $file_image);
-                $product->image_ingredient = $file_image;
+                $input['image_ingredient'] = $file_image;
             }
             if($request->hasfile('image_use')){
                 $file = $request->file('image_use');
                 $extension = $file->getClientOriginalExtension();
                 $file_image = time().'.'.$extension;
                 $file->move('uploads/image-use/', $file_image);
-                $product->image_use = $file_image;
+                $input['image_use'] = $file_image;
             }
             if($request->hasfile('more_image')){
                 $file = $request->file('more_image');
                 $extension = $file->getClientOriginalExtension();
                 $file_image = time().'.'.$extension;
                 $file->move('uploads/image-more/', $file_image);
-                $product->more_image = $file_image;
+                $input['more_image'] = $file_image;
             }
 
            $product = $this->repository->create($input);
