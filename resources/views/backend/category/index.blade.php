@@ -35,7 +35,7 @@
                 </button>
             </div>
         </div>
-        <div class="card-body p-0" style="overflow-x:auto;">
+        <div class="card-body p-0 table-responsive" style="overflow-x:auto;">
             <table class="table table-striped projects">
                 <thead>
                     <tr>

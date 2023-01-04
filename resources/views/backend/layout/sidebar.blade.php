@@ -33,7 +33,7 @@
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-user"></i>
                     <p>
                         Quản lý User
                         <i class="fas fa-angle-left right"></i>
@@ -56,9 +56,9 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-gifts"></i>
                     <p>
-                        Quản lý mặt hàng
+                        Quản lý loại mặt hàng
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
@@ -79,7 +79,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-gift"></i>
                     <p>
                         Quản lý sản phẩm
                         <i class="fas fa-angle-left right"></i>
@@ -102,7 +102,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-newspaper"></i>
                     <p>
                         Quản lý tin tức
                         <i class="fas fa-angle-left right"></i>
@@ -125,7 +125,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-cart-plus"></i>
                     <p>
                         Quản lý đơn hàng
                         <i class="fas fa-angle-left right"></i>
@@ -148,7 +148,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-share "></i>
                     <p>
                         Quản lý phân quyền
                         <i class="fas fa-angle-left right"></i>
@@ -171,7 +171,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-brush"></i>
                     <p>
                         Themes option
                         <i class="fas fa-angle-left right"></i>
@@ -188,7 +188,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-comment"></i>
                     <p>
                         Phản hồi
                         <i class="fas fa-angle-left right"></i>
