@@ -203,6 +203,29 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-pager"></i>
+                    <p>
+                        Quản lý trang
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('pages.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách các trang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('pages.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm trang mới</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
