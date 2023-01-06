@@ -20,6 +20,7 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::resource('user', 'UsersController');
         Route::resource('post', 'PostsController');
         Route::resource('product', 'ProductsController');
+        Route::resource('orders-detail', 'OrdersDetailsController');
     });
 });
 
