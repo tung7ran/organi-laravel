@@ -81,6 +81,29 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-gift"></i>
                     <p>
+                        Quản lý khách hàng
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('customers.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách khách hàng</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('customers.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm khách hàng</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
                         Quản lý sản phẩm
                         <i class="fas fa-angle-left right"></i>
                     </p>
@@ -133,15 +156,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('orders.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách đơn hàng</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('orders.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Thêm tin tức</p>
+                            <p>Đơn hàng</p>
                         </a>
                     </li>
                 </ul>
