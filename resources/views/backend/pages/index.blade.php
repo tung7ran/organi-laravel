@@ -6,24 +6,25 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Sản phẩm</h1>
+                <h1>Danh sách pages</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('backend.home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Sản phẩm</li>
+                    <li class="breadcrumb-item active">Pages</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
+
 <!-- Main content -->
 <section class="content">
 
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh sách sản phẩm</h3>
+            <h3 class="card-title">Danh sách pages</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -38,62 +39,50 @@
             <table class="table table-bordered projects">
                 <thead>
                     <tr>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Slug
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Content
-                        </th>
-                        <th>Price</th>
-                        <th>Sale Price</th>
-                        <th>Category</th>
-                        <th>
-                            Image
-                        </th>
-                        <th>
-                            Actions
-                        </th>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Page Name</th>
+                        <th>Route</th>
+                        <th>Content</th>
+                        <th>Image</th>
+                        <th>Banner</th>
+                        <th>Title H1</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($data as $key => $value)
+                    @foreach($data as $key => $value)
                     <tr>
                         <td>
                             {{ $key + 1 }}
                         </td>
                         <td>
-                            {{ $value['name'] }}
+                            {{ $value['type'] }}
                         </td>
-                        <td>{{ $value['slug'] }}</td>
-                        <td>{{ $value['desc'] }}</td>
+                        <td>{{ $value['name_page'] }}</td>
+                        <td>{{ $value['route'] }}</td>
                         <td>{{ $value['content'] }}</td>
-                        <td>{{ $value['price'] }}</td>
-                        <td>{{ $value['sale_price'] }}</td>
-                        <td>{{ $value['productCat_id'] }}</td>
                         <td>
-                           <img src="{{ asset('uploads/images/'.$value->image) }}" alt="" class="table-avatar rounded-0">
+                            <img src="{{ asset('uploads/pages/images/'.$value->image) }}" alt="" class="table-avatar rounded-0">
+                        </td>
+                        <td>
+                            <img src="{{ asset('uploads/pages/banners/'.$value->banner) }}" alt="" class="table-avatar rounded-0">
+
+                        </td>
+                        <td>
+                            {{ $value['title_h1'] }}
                         </td>
                         <td class="project-actions">
                             <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
+                                <i class="fas fa-folder"></i>
                                 View
                             </a>
-                            <a class="btn btn-info btn-sm" href="{{ route('product.edit', $value->id) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('pages.edit', $value->id) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 Edit
                             </a>
-                            {{ Form::open(array('method'=>'DELETE', 'route' => array('product.destroy', $value->id), 'style' => 'display: inline-block;')) }}
+                            {{ Form::open(array('method'=>'DELETE', 'route' => array('pages.destroy', $value->id), 'style' => 'display: inline-block;')) }}
                             <button onclick="return confirm('Bạn có chắc chắn muốn xóa?');" class="btn btn-danger btn-sm" data-original-title="Xóa" data-toggle="m-tooltip">
                                 <i class="fas fa-trash"></i> Delete
                             </button>

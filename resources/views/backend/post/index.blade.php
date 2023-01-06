@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($data as $key => $value)
+                    @foreach($data as $key => $value)
                     <tr>
                         <td>
                             {{ $key + 1 }}
@@ -73,10 +73,10 @@
                         <td>{{ $value['desc'] }}</td>
                         <td>{{ $value['content'] }}</td>
                         <td>
-                        <img src="{{ asset('uploads/posts/'.$value->image) }}" alt="" class="table-avatar rounded-0">
+                            <img src="{{ asset('uploads/posts/'.$value->image) }}" alt="" class="table-avatar rounded-0">
                         </td>
-                        <td >
-                        {{ $value['type'] }}
+                        <td>
+                            {{ $value['type'] }}
                         </td>
                         <td class="project-actions">
                             <a class="btn btn-primary btn-sm" href="#">

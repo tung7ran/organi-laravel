@@ -58,9 +58,9 @@
                         <select id="post-type" class="form-control custom-select" name="type" value="{{ $post->type }}">
                             <option selected disabled>Select one</option>
                             @foreach (\App\Models\Post::$postType as $key => $value)
-                                <option value="{{ $key }}">
-                                    {{ $value }}
-                                </option>
+                            <option value="{{ $key }}">
+                                {{ $value }}
+                            </option>
                             @endforeach
                         </select>
                     </div>

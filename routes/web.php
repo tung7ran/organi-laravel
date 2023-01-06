@@ -21,6 +21,13 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::resource('customers', 'CustomersController');
         Route::resource('post', 'PostsController');
         Route::resource('product', 'ProductsController');
+        Route::resource('category', 'ProductCategoriesController');
+        Route::resource('pages', 'PagesController');
+        Route::resource('orders', 'OrdersController');
+
+        //Route for submitting dropzone data
+        Route::post('/storeimage', 'ProductsController@storeImage');
+
     });
 });
 

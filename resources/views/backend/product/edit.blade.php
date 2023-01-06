@@ -58,6 +58,15 @@
                         <label for="product_content">Project Content</label>
                         <textarea id="product_content" class="form-control" rows="4" name="content">{{ $product->content }}</textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="category" class="form-label">Category:</label>
+                        <select name="productCat_id" class="form-control" id="category" defaultvalu>
+                            <option value="">-- Select Category --</option>
+                            @foreach($category as $item)
+                            <option value="{{ $item->id }}" {{$product->productCat_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="row" style="gap: 5px;">
                         <div class="form-group">
                             <label role="button" class="border border-secondary px-3" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
