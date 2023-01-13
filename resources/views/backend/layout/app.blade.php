@@ -26,6 +26,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('backend/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
+    <link rel="stylesheet" href="{{ url('backend/custom/custom.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
 
 </head>
@@ -93,6 +94,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('backend/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ url('backend/plugins/ckfinder/ckfinder.js') }}"></script>
 <script src="{{ url('backend/dist/js/pages/dashboard.js') }}"></script>
+<script src="{{ url('backend/custom/custom.js') }}"></script>
 </body>
 </html>

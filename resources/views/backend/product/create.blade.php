@@ -34,8 +34,6 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="hidden" class="productid" name="productid" id="productid" value="">
-
                         <label for="product_name">Product Name</label>
                         <input type="text" id="product_name" class="form-control" name="name" value="{{ old('name') }}">
                     </div>
@@ -59,33 +57,37 @@
                         <label for="product_content">Project Content</label>
                         <textarea id="product_content" class="form-control" rows="4" name="content" value="{{ old('content') }}"></textarea>
                     </div>
-
-                    <div class="row">
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
-                            <div class="preview-image">
-                                <img id="output" alt="" style="width: 100%;">
-                            </div>
-                        </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="img_content">Image Content <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="img_content" hidden class="form-control" name="image_content" value="{{ old('image_content') }}">
-                        </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="image_ingredient">Image Ingredient <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="image_ingredient" hidden class="form-control" name="image_ingredient" value="{{ old('image_ingredient') }}">
-                        </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="image_use">Image Use <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="image_use" hidden class="form-control" name="image_use" value="{{ old('image_use') }}">
-                        </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="more_image">More Image <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="more_image" hidden class="form-control" name="more_image" value="{{ old('more_image') }}">
+                    <div class="form-group">
+                        <label>Ảnh nội dung(ảnh upload không quá 2MB):</label>
+                        <label role="button" class="border border-secondary px-3" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
+                        <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
+                        <div class="preview-image">
+                            <img id="output" alt="" style="width: 100%;">
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label for="product_content">Ảnh Gallery(ảnh upload không quá 2MB)</label>
+                        <div id="gallery">
+                            <button type="button" class="btn btn-success" onclick="fileMultiSelect(this)"><i class="fa fa-upload"></i>
+                                Chọn hình ảnh
+                            </button>
+                            <br><br>
+                            <div class="image__gallery">
+                                @if (!empty($data->more_image))
+                                    <?php $more_image = json_decode($data->more_image) ?>
+                                    @foreach ($more_image as $item)
+                                        <div class="image__thumbnail image__thumbnail--style-1">
+                                            <img src="{{ @$item }}">
+                                            <a href="javascript:void(0)" class="image__delete" onclick="urlFileMultiDelete(this)">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                            <input type="hidden" name="gallery[]" value="{{ @$item }}">
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>
