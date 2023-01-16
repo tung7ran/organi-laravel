@@ -39,15 +39,10 @@
             <table class="table table-bordered projects">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Type</th>
-                        <th>Page Name</th>
-                        <th>Route</th>
-                        <th>Content</th>
-                        <th>Image</th>
-                        <th>Banner</th>
-                        <th>Title H1</th>
-                        <th>Actions</th>
+                        <th>STT</th>
+                        <th>Tên Trang</th>
+                        <th>Liên Kết</th>
+                        <th>Hành Động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,22 +51,7 @@
                         <td>
                             {{ $key + 1 }}
                         </td>
-                        <td>
-                            {{ $value['type'] }}
-                        </td>
                         <td>{{ $value['name_page'] }}</td>
-                        <td>{{ $value['route'] }}</td>
-                        <td>{{ $value['content'] }}</td>
-                        <td>
-                            <img src="{{ asset('uploads/pages/images/'.$value->image) }}" alt="" class="table-avatar rounded-0">
-                        </td>
-                        <td>
-                            <img src="{{ asset('uploads/pages/banners/'.$value->banner) }}" alt="" class="table-avatar rounded-0">
-
-                        </td>
-                        <td>
-                            {{ $value['title_h1'] }}
-                        </td>
                         <td class="project-actions">
                             <a class="btn btn-primary btn-sm" href="#">
                                 <i class="fas fa-folder"></i>
