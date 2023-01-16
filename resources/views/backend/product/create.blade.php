@@ -21,7 +21,7 @@
 {{ Form::open(array('route' => 'product.store', 'enctype' => 'multipart/form-data')) }}
 
 <section class="content">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
@@ -34,8 +34,6 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="hidden" class="productid" name="productid" id="productid" value="">
-
                         <label for="product_name">Product Name</label>
                         <input type="text" id="product_name" class="form-control" name="name" value="{{ old('name') }}">
                     </div>
@@ -59,37 +57,256 @@
                         <label for="product_content">Project Content</label>
                         <textarea id="product_content" class="form-control" rows="4" name="content" value="{{ old('content') }}"></textarea>
                     </div>
-
-                    <div class="row">
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
-                            <div class="preview-image">
-                                <img id="output" alt="" style="width: 100%;">
+                    <div class="form-group">
+                        <label>Ảnh nội dung(ảnh upload không quá 2MB):</label>
+                        <label role="button" class="border border-secondary px-3" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
+                        <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
+                        <div class="preview-image">
+                            <img id="output" alt="" style="width: 100%;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_content">Ảnh Gallery(ảnh upload không quá 2MB)</label>
+                        <div id="gallery">
+                            <button type="button" class="btn btn-success" onclick="fileMultiSelect(this)"><i class="fa fa-upload"></i>
+                                Chọn hình ảnh
+                            </button>
+                            <br><br>
+                            <div class="image__gallery">
+                                @if (!empty($data->more_image))
+                                <?php $more_image = json_decode($data->more_image) ?>
+                                @foreach ($more_image as $item)
+                                <div class="image__thumbnail image__thumbnail--style-1">
+                                    <img src="{{ @$item }}">
+                                    <a href="javascript:void(0)" class="image__delete" onclick="urlFileMultiDelete(this)">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    <input type="hidden" name="gallery[]" value="{{ @$item }}">
+                                </div>
+                                @endforeach
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="img_content">Image Content <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="img_content" hidden class="form-control" name="image_content" value="{{ old('image_content') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="nav-tabs-item">
+                        <a href="#activity" class="active" data-toggle="tab" aria-expanded="true">Thông tin sản phẩm</a>
+                    </li>
+                    <li class="nav-tabs-item ">
+                        <a href="#gallery" data-toggle="tab" aria-expanded="true">Thư viện ảnh</a>
+                    </li>
+                    <li class="nav-tabs-item ">
+                        <a href="#setting" data-toggle="tab" aria-expanded="true">Cấu hình seo</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="activity">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Tên sản phẩm</label>
+                                    <input type="text" class="form-control" name="name" id="name">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Giá bán</label>
+                                    <input type="number" min="0" name="price" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Giá khuyến mại ( Nếu có )</label>
+                                    <input type="number" min="0" name="sale_price" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="">Mô tả ngắn</label>
+                                    <textarea class="form-control" id="editor_desc" name="desc" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <label for="">Mô tả sản phẩm</label>
+                                    <textarea name="content" id="editor_desc_product" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="">Hình ảnh</label>
+                                    <div class="image">
+                                        <div class="image__thumbnail">
+                                            <img src="http://127.0.0.1:8000/backend/img/placeholder.png" data-init="">
+                                            <a href="#" class="image__delete" onclick="urlFileDelete(this)">
+                                                <i class="fa fa-times"></i></a>
+                                            <input type="file" id="file1" hidden value="{{ old('image_content', @$data->image_content) }}" name="image_content" />
+                                            <label class="image__button" for="file1">
+                                                <i class="fa fa-upload"></i>
+                                                Upload
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <label for="">Cách sử dụng</label>
+                                    <textarea class="form-control" id="editor_desc_manual" rows="5" name="content_using"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="">Hình ảnh</label>
+                                    <div class="image">
+                                        <div class="image__thumbnail">
+                                            <img src="http://127.0.0.1:8000/backend/img/placeholder.png" data-init="#">
+                                            <a href="javascript:void(0)" class="image__delete" onclick="urlFileDelete(this)">
+                                                <i class="fa fa-times"></i></a>
+                                            <input type="file" id="file2" hidden name="image_use" />
+                                            <label for="file2" class="image__button" onclick="fileSelect(this)">
+                                                <i class="fa fa-upload"></i>
+                                                Upload
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <label for="">Thành phần hoạt tính</label>
+                                    <textarea class="form-control" id="editor_element" rows="5" name="ingredient"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="">Hình ảnh</label>
+                                    <div class="image">
+                                        <div class="image__thumbnail">
+                                            <img src="http://127.0.0.1:8000/backend/img/placeholder.png" data-init="#">
+                                            <a href="javascript:void(0)" class="image__delete" onclick="urlFileDelete(this)">
+                                                <i class="fa fa-times"></i></a>
+                                            <input type="file" hidden id="file3" value="#" name="image_ingredient" />
+                                            <label for="file3" class="image__button" onclick="fileSelect(this)">
+                                                <i class="fa fa-upload"></i>
+                                                Upload
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="image_ingredient">Image Ingredient <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="image_ingredient" hidden class="form-control" name="image_ingredient" value="{{ old('image_ingredient') }}">
+                    </div>
+                    <div class="tab-pane" id="gallery">
+                        <div class="row">
+                            <div class="col-sm-12 image">
+                                <button type="button" class="btn btn-success" onclick="fileMultiSelect(this)"><i class="fa fa-upload"></i>
+                                    Chọn hình ảnh
+                                </button>
+                                <br><br>
+                                <div class="image__gallery">
+                                    <div class="image__thumbnail image__thumbnail--style-1">
+                                        <img src="http://127.0.0.1:8000/backend/img/placeholder.png">
+                                        <a href="#" class="image__delete" onclick="urlFileMultiDelete(this)">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                        <input type="hidden" name="gallery[]" value="{{ @$item }}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="image_use">Image Use <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="image_use" hidden class="form-control" name="image_use" value="{{ old('image_use') }}">
+                    </div>
+                    <div class="tab-pane" id="setting">
+                        <div class="form-group">
+                            <label>Title SEO</label>
+                            <label style="float: right;">Số ký tự đã dùng: <span id="countTitle"></span></label>
+                            <input type="text" class="form-control" name="meta_title" value="" id="meta_title">
                         </div>
-                        <div class="form-group" style="width: calc(100% / 5); margin: 0 auto;">
-                            <label role="button" class="border border-secondary px-3" style="margin-left: 50%; transform: translateX(-50%); width: 70%; text-align: center;" for="more_image">More Image <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="more_image" hidden class="form-control" name="more_image" value="{{ old('more_image') }}">
+
+                        <div class="form-group">
+                            <label>Meta Description</label>
+                            <label style="float: right;">Số ký tự đã dùng: <span id="countMeta">360</span></label>
+                            <textarea name="meta_description" class="form-control" id="meta_description" rows="3"></textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label>Meta Keyword</label>
+                            <input type="text" class="form-control" name="meta_keyword">
+                        </div>
+                        <div class="google-preview">
+                            <span class="google__title"><span></span></span>
+                            <div class="google__url">
+                            </div>
+                            <div class="google__description"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Đăng sản phẩm</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" class="form-control" name="status" value="1" checked> <span>Hiển thị</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" class="form-control" name="hot" value="1"> <span>Sản phẩm nổi bật</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" class="form-control" name="is_sale" value="1"><span>Sản phẩm sale</span>
+                        </label>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại sản phẩm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh mục sản phẩm</h3>
+                </div>
+                <div class="box-body checkboxlist">
+                    <div class="form-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" class="fomr-control"><span> Fresh Berries</span>
+                        </label>
                     </div>
 
                 </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Ảnh sản phẩm</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group" style="text-align: center;">
+                        <div class="image">
+                            <div class="image__thumbnail">
+                                <img src="http://127.0.0.1:8000/backend/img/placeholder.png" data-init="#">
+                                <a href="#" class="image__delete" onclick="urlFileDelete(this)">
+                                    <i class="fa fa-times"></i></a>
+                                <input type="file" hidden id="file4" value="{{ old('image', @$data->image) }}" name="image" />
+                                <label for="file4" class="image__button" onclick="fileSelect(this)">
+                                    <i class="fa fa-upload"></i>
+                                    Upload
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -110,4 +327,3 @@
         output.src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
-

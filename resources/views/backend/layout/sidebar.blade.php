@@ -131,7 +131,7 @@
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview">  
                     <li class="nav-item">
                         <a href="{{ route('post.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -142,6 +142,29 @@
                         <a href="{{ route('post.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm tin tức</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Quản lý danh mục tin tức
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">  
+                    <li class="nav-item">
+                        <a href="{{ route('post-category.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>danh mục tin tức</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('post-category.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm danh mục tin tức</p>
                         </a>
                     </li>
                 </ul>

@@ -58,6 +58,8 @@
                             Image
                         </th>
                         <th>Type</th>
+                        <th>Category</th>
+                        <th>active</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,6 +80,7 @@
                         <td >
                         {{ $value['type'] }}
                         </td>
+                        <td> {{ $value['category_id'] }}</td>
                         <td class="project-actions">
                             <a class="btn btn-primary btn-sm" href="#">
                                 <i class="fas fa-folder"></i>

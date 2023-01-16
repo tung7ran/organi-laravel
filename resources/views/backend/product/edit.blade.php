@@ -58,33 +58,36 @@
                         <label for="product_content">Project Content</label>
                         <textarea id="product_content" class="form-control" rows="4" name="content">{{ $product->content }}</textarea>
                     </div>
-                    <div class="row" style="gap: 5px;">
-                        <div class="form-group">
-                            <label role="button" class="border border-secondary px-3" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ $product->image }}" onchange="loadFile(this)">
-
+                    <div class="form-group">
+                        <label role="button" class="border border-secondary px-3" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
+                        <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ $product->image }}" onchange="loadFile(this)">
+                        <div class="preview-image">
+                            <img id="output" alt="" style="width: 20%; margin: 0 auto;">
                         </div>
-                        <div class="form-group">
-                            <label role="button" class="border border-secondary px-3" for="img_content">Image Content <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="img_content" hidden class="form-control" name="image_content" value="{{ $product->image_content }}">
-                        </div>
-                        <div class="form-group">
-                            <label role="button" class="border border-secondary px-3" for="image_ingredient">Image Ingredient <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="image_ingredient" hidden class="form-control" name="image_ingredient" value="{{ $product->image_ingredient }}">
-                        </div>
-                        <div class="form-group">
-                            <label role="button" class="border border-secondary px-3" for="image_use">Image Use <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="image_use" hidden class="form-control" name="image_use" value="{{ $product->image_use }}">
-                        </div>
-                        <div class="form-group">
-                            <label role="button" class="border border-secondary px-3" for="more_image">More Image <i class="nav-icon fas fa-plus"></i></label>
-                            <input type="file" id="more_image" hidden class="form-control" name="more_image" value="{{ $product->more_image }}">
-                        </div>
-
                     </div>
-
-                    <div class="preview-image">
-                        <img id="output" alt="" style="width: 20%; margin: 0 auto;">
+                    <div class="form-group">
+                        <label for="product_content">Ảnh Gallery(ảnh upload không quá 5MB)</label>
+                        <div class="input-group hdtuto control-group lst increment">
+                            <div class="list-input-hidden-upload">
+                                <input type="file" name="more_image[]" id="file_upload" class="myfrm form-control hidden">
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success btn-add-image" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>+Add image</button>
+                            </div>
+                        </div>
+                        <div class="list-images">
+                            @if (isset($list_images) && !empty($list_images))
+                                @foreach (json_decode($list_images) as $key => $img)
+                                    <div class="box-image">
+                                        <input type="hidden" name="images_uploaded[]" value="{{ $img }}" id="img-{{ $key }}">
+                                        <img src="{{ asset('uploads/image-more/'.$img) }}" class="picture-box">
+                                        <div class="wrap-btn-delete"><span data-id="img-{{ $key }}" class="btn-delete-image">x</span></div>
+                                    </div>
+                                @endforeach
+                                <input type="hidden" name="images_uploaded_origin" value="{{ $list_images }}">
+                                <input type="hidden" name="id" value="{{ $id }}">
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <!-- /.card-body -->
