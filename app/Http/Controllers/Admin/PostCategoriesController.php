@@ -2,42 +2,44 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostCreateRequest;
-use App\Http\Requests\PostUpdateRequest;
-use App\Repositories\PostRepository;
-use App\Validators\PostValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Models\PostCategory;
+use App\Http\Requests\PostCategoryCreateRequest;
+use App\Http\Requests\PostCategoryUpdateRequest;
+use App\Repositories\PostCategoryRepository;
+use App\Validators\PostCategoryValidator;
+
 /**
- * Class PostsController.
+ * Class PostCategoriesController.
  *
  * @package namespace App\Http\Controllers;
  */
-class PostsController extends Controller
+class PostCategoriesController extends Controller
 {
     /**
-     * @var PostRepository
+     * @var PostCategoryRepository
      */
     protected $repository;
 
     /**
-     * @var PostValidator
+     * @var PostCategoryValidator
      */
     protected $validator;
 
     /**
-     * PostsController constructor.
+     * PostCategoriesController constructor.
      *
-     * @param PostRepository $repository
-     * @param PostValidator $validator
+     * @param PostCategoryRepository $repository
+     * @param PostCategoryValidator $validator
      */
-    public function __construct(PostRepository $repository, PostValidator $validator)
+    public function __construct(PostCategoryRepository $repository, PostCategoryValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->partView   = 'backend.post';
+        $this->partView   = 'backend.post-category';
     }
 
     /**
@@ -48,44 +50,33 @@ class PostsController extends Controller
     public function index()
     {
         $data  = $this->repository->paginate(request()->all());
-        return view($this->partView . '.index', compact('data'));
+        return view($this->partView. '.index', compact('data')); 
     }
 
     public function create()
     {
-        $catePost = PostCategory::all();
-        return view($this->partView . '.create', compact('catePost'));
+        return view($this->partView . '.create');
     }
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PostCreateRequest $request
+     * @param  PostCategoryCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(PostCreateRequest $request) {
+    public function store(PostCategoryCreateRequest $request)
+    {
         try {
+
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $input     = $request->all();
-            $input['name'] = $request->input('name');
-            $input['slug'] = $request->input('slug');
-            $input['type'] = $request->NAME;
-            $input['desc'] = $request->DESC;
-            $input['content'] = $request->CONTENT;
-            $input['category_id'] = $request->category_id;
-            if ($request->hasfile('image')) {
-                $file = $request->file('image');
-                $extension = $file->getClientOriginalExtension();
-                $file_image = time() . '.' . $extension;
-                $file->move('uploads/posts/', $file_image);
-                $input['image'] = $file_image;
-            }
-            $post     = $this->repository->create($input);
+
+            $postCategory = $this->repository->create($request->all());
+
             $response = [
-                'message' => trans('messages.create_success'),
-                'data'    => $post->toArray(),
+                'message' => 'PostCategory created.',
+                'data'    => $postCategory->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -93,7 +84,7 @@ class PostsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->route('post.index')->with('message', trans('messages.create_success'));
+            return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -113,17 +104,18 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        $post = $this->repository->find($id);
+    public function show($id)
+    {
+        $postCategory = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $post,
+                'data' => $postCategory,
             ]);
         }
 
-        return view($this->partView . '.show', compact('post'));
+        return view('postCategories.show', compact('postCategory'));
     }
 
     /**
@@ -133,34 +125,34 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        $post = $this->repository->find($id);
-        $types = $post->type;
-        $catePost = PostCategory::all();
-       
-        return view($this->partView . '.edit', compact('post', 'types', 'catePost'));
+    public function edit($id)
+    {
+        $postCategory = $this->repository->find($id);
+
+        return view($this->partView. '.edit', compact('postCategory')); 
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  PostUpdateRequest $request
+     * @param  PostCategoryUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(PostUpdateRequest $request, $id) {
+    public function update(PostCategoryUpdateRequest $request, $id)
+    {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $post = $this->repository->update($request->all(), $id);
+            $postCategory = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => trans('messages.update_success'),
-                'data'    => $post->toArray(),
+                'message' => 'PostCategory updated.',
+                'data'    => $postCategory->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -168,7 +160,7 @@ class PostsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->route('post.index')->with('message',  trans('messages.update_success'));
+            return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -191,17 +183,18 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $deleted = $this->repository->delete($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => trans('messages.delete_success'),
+                'message' => 'PostCategory deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', trans('messages.delete_success'));
+        return redirect()->back()->with('message', 'PostCategory deleted.');
     }
 }
