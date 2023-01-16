@@ -21,7 +21,8 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::resource('customers', 'CustomersController');
         Route::resource('post', 'PostsController');
         Route::resource('product', 'ProductsController');
-
+        Route::resource('pages', 'PagesController');
+        Route::resource('category', 'ProductCategoriesController');
         Route::resource('post-category', 'PostCategoriesController');
 
 
