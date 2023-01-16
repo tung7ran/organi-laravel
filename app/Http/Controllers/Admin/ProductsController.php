@@ -75,7 +75,7 @@ class ProductsController extends Controller {
      */
     public function store(ProductCreateRequest $request) {
         try {
-            dd($request);
+            // dd($request);
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
             $input['name']          = $request->input('name');
             $input['slug']          = $request->input('slug');
@@ -93,7 +93,7 @@ class ProductsController extends Controller {
                 $input['image'] = $file_image;
             }
             $input['more_image'] = !empty($request->input('gallery')) ? json_encode($request->input('gallery')) : null;
-            dd($input);
+            // dd($input);
            $product = $this->repository->create($input);
 
             $response = [
@@ -148,10 +148,11 @@ class ProductsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $product = $this->repository->find($id);
 
+        $product = $this->repository->find($id);
+        $category = ProductCategory::all();
         $list_images = $this->product->all('more_image');
-        return view($this->partView . '.edit', compact('product', 'list_images'));
+        return view($this->partView . '.edit', compact('product', 'list_images', 'category'));
     }
 
     /**
@@ -189,7 +190,7 @@ class ProductsController extends Controller {
             $file = $this->product->findOrFail($id);
             $more_image = $file['more_image'];
             if($file->update()) {
-                dd($file);
+                // dd($file);
 //                foreach ($more_image_remove as $file_name) {
 //                    File2::delete("uploads/image-more/" . $file_name);
 //                }
