@@ -18,13 +18,12 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'backend', 'middleware' => 'auth'], function () {
         Route::get('/home', 'HomeController@index')->name('backend.home');
         Route::resource('user', 'UsersController');
+        Route::resource('customers', 'CustomersController');
         Route::resource('post', 'PostsController');
         Route::resource('product', 'ProductsController');
-        Route::resource('category', 'ProductCategoriesController');
-        Route::resource('pages', 'PagesController');
 
-        //Route for submitting dropzone data
-        Route::post('/storeimage', 'ProductsController@storeImage');
+        Route::resource('post-category', 'PostCategoriesController');
+
 
     });
 });

@@ -2,28 +2,46 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PostCategory extends Model
+/**
+ * Class PostCategory.0
+ *
+ * @package namespace App\Models;
+ */
+class PostCategory extends Model implements Transformable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use TransformableTrait, HasApiTokens, HasFactory, Notifiable;
 
-    const NAME       = 'name';
-    const CREATED_BY = 'created_by';
-    const UPDATED_BY = 'updated_by';
-
+    const NAME              = 'name';
+    const SLUG              = 'slug';
+    const CATEGORY_ID       = 'category_id';
+    const CREATE_AT         = 'create_at';
+    const UPDATED_AT        = 'updated_at';
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
         self::NAME,
-        self::CREATED_BY,
-        self::UPDATED_BY,
+        self::SLUG,
+        self::CATEGORY_ID,
+        self::CREATE_AT,
+        self::UPDATED_AT
     ];
+
+    // public static $postType = [
+    //     self::BASIC   => 'Cơ Bản',
+    //     self::PRO => 'Chi tiết',
+    // ];
+
+    protected $CREATE_AT = 'Y-m-d';
+    protected $UPDATED_AT = 'Y-m-d';
 }

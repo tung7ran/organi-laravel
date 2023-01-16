@@ -81,6 +81,29 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-gift"></i>
                     <p>
+                        Quản lý khách hàng
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('customers.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách khách hàng</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('customers.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm khách hàng</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
                         Quản lý sản phẩm
                         <i class="fas fa-angle-left right"></i>
                     </p>
@@ -108,7 +131,7 @@
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview">  
                     <li class="nav-item">
                         <a href="{{ route('post.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -126,6 +149,29 @@
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-cart-plus"></i>
+                    <p>
+                        Quản lý danh mục tin tức
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">  
+                    <li class="nav-item">
+                        <a href="{{ route('post-category.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>danh mục tin tức</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('post-category.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm danh mục tin tức</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
                     <p>
                         Quản lý đơn hàng
                         <i class="fas fa-angle-left right"></i>

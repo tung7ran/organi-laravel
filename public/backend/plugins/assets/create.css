@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.nav-tabs-custom .nav-tabs {
+  border-bottom: none;
+  background-color: #56e8f0;
+  height: 44px;
+}
+.nav-tabs-custom .nav-tabs-item {
+  line-height: 44px;
+}
+.nav-tabs-custom .nav-tabs-item a {
+  display: inline-block;
+  color: #333;
+  padding: 10px 15px;
+  line-height: 22px;
+}
+.nav-tabs-custom .nav-tabs-item .active {
+  border-top: #6762b9 3px solid;
+  background-color: #fff;
+}
+.nav-tabs-custom .tab-content {
+  padding: 10px;
+  background-color: #fff;
+}
+
+.box-success {
+  background-color: #fff;
+  border-top: 2px solid #00a65a;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-bottom: 20px;
+}
+.box-success .box-header .box-title {
+  font-size: 18px;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #f4f4f4;
+  margin-bottom: 0;
+}
+.box-success .box-body {
+  padding: 10px;
+}
+.box-success .box-body .form-group .custom-checkbox span {
+  font-size: 14px;
+}
+.box-success .box-body .form-group .custom-checkbox input[type=checkbox]:checked:before {
+  content: "✔";
+}
+.box-success .box-body .form-group button {
+  font-size: 14px;
+}
+
+.image__button {
+  margin-bottom: 0;
+}
+
+#setting .form-group label {
+  font-size: 14px;
+}/*# sourceMappingURL=create.css.map */

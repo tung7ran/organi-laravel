@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repositories\ProductRepository;
 use App\Validators\ProductValidator;
-use App\Models\Product;
 use App\Models\ProductCategory;
+use Illuminate\Support\Facades\File as File2;
+use App\Models\Product;
+
 
 /**
  * Class ProductsController.
@@ -28,15 +31,20 @@ class ProductsController extends Controller {
      */
     protected $validator;
 
+    protected $product;
+
     /**
      * ProductsController constructor.
      *
      * @param ProductRepository $repository
      * @param ProductValidator $validator
      */
-    public function __construct(ProductRepository $repository, ProductValidator $validator) {
+
+    public function __construct(ProductRepository $repository, ProductValidator $validator, Product $product)
+    {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->product    = $product;
         $this->partView   = 'backend.product';
     }
 
@@ -45,7 +53,9 @@ class ProductsController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+
+    public function index()
+    {
 
         $data  = $this->repository->paginate(request()->all());
         return view($this->partView . '.index', compact('data'));
@@ -65,8 +75,8 @@ class ProductsController extends Controller {
      */
     public function store(ProductCreateRequest $request) {
         try {
+            dd($request);
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $input                  = $request->all();
             $input['name']          = $request->input('name');
             $input['slug']          = $request->input('slug');
             $input['price']         = $request->input('price');
@@ -82,39 +92,12 @@ class ProductsController extends Controller {
                 $file->move('uploads/images/', $file_image);
                 $input['image'] = $file_image;
             }
-            if ($request->hasfile('image_content')) {
-                $file = $request->file('image_content');
-                $extension = $file->getClientOriginalExtension();
-                $file_image = time() . '.' . $extension;
-                $file->move('uploads/image-content/', $file_image);
-                $input['image_content'] = $file_image;
-            }
-            if ($request->hasfile('image_ingredient')) {
-                $file = $request->file('image_ingredient');
-                $extension = $file->getClientOriginalExtension();
-                $file_image = time() . '.' . $extension;
-                $file->move('uploads/image-ingredient/', $file_image);
-                $input['image_ingredient'] = $file_image;
-            }
-            if ($request->hasfile('image_use')) {
-                $file = $request->file('image_use');
-                $extension = $file->getClientOriginalExtension();
-                $file_image = time() . '.' . $extension;
-                $file->move('uploads/image-use/', $file_image);
-                $input['image_use'] = $file_image;
-            }
-            if ($request->hasfile('more_image')) {
-                $file = $request->file('more_image');
-                $extension = $file->getClientOriginalExtension();
-                $file_image = time() . '.' . $extension;
-                $file->move('uploads/image-more/', $file_image);
-                $input['more_image'] = $file_image;
-            }
-
-            $product = $this->repository->create($input);
+            $input['more_image'] = !empty($request->input('gallery')) ? json_encode($request->input('gallery')) : null;
+            dd($input);
+           $product = $this->repository->create($input);
 
             $response = [
-                'message' => trans('messages.create_success'),
+                'message' => trans( trans('messages.create_success')),
                 'data'    => $product->toArray(),
             ];
 
@@ -166,8 +149,9 @@ class ProductsController extends Controller {
      */
     public function edit($id) {
         $product = $this->repository->find($id);
-        $category = ProductCategory::all();
-        return view($this->partView . '.edit', compact('product', 'category'));
+
+        $list_images = $this->product->all('more_image');
+        return view($this->partView . '.edit', compact('product', 'list_images'));
     }
 
     /**
@@ -182,9 +166,34 @@ class ProductsController extends Controller {
      */
     public function update(ProductUpdateRequest $request, $id) {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
+            $more_image = [];
+            $more_image_remove = [];
+            if($request->hasfile('more_image'))
+            {
+                foreach($request->file('more_image') as $file)
+                {
+                    $extension = $file->getClientOriginalExtension();
+                    $file_image = time().'.'.$extension;
+                    $more_image[] = $file_image;
+                }
+            }
+            if (isset($request['images_uploaded'])) {
+                $more_image_remove = array_diff(json_decode($request['images_uploaded_origin']), $request['images_uploaded']);
+                $more_image = array_merge($request['images_uploaded'], $more_image);
+            } else {
+                $more_image_remove = json_decode($request['images_uploaded_origin']);
+            }
+
+            $file = $this->product->findOrFail($id);
+            $more_image = $file['more_image'];
+            if($file->update()) {
+                dd($file);
+//                foreach ($more_image_remove as $file_name) {
+//                    File2::delete("uploads/image-more/" . $file_name);
+//                }
+            }
             $product = $this->repository->update($request->all(), $id);
 
             $response = [
@@ -224,7 +233,7 @@ class ProductsController extends Controller {
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => trans('messages.delete_success'),
+                'message' => trans( trans('messages.delete_success')),
                 'deleted' => $deleted,
             ]);
         }

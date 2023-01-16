@@ -9,7 +9,7 @@ use App\Repositories\PostRepository;
 use App\Validators\PostValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-
+use App\Models\PostCategory;
 /**
  * Class PostsController.
  *
@@ -53,7 +53,8 @@ class PostsController extends Controller
 
     public function create()
     {
-        return view($this->partView . '.create');
+        $catePost = PostCategory::all();
+        return view($this->partView . '.create', compact('catePost'));
     }
     /**
      * Store a newly created resource in storage.
@@ -73,6 +74,7 @@ class PostsController extends Controller
             $input['type'] = $request->NAME;
             $input['desc'] = $request->DESC;
             $input['content'] = $request->CONTENT;
+            $input['category_id'] = $request->category_id;
             if ($request->hasfile('image')) {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
@@ -134,7 +136,9 @@ class PostsController extends Controller
     public function edit($id) {
         $post = $this->repository->find($id);
         $types = $post->type;
-        return view($this->partView . '.edit', compact('post', 'types'));
+        $catePost = PostCategory::all();
+       
+        return view($this->partView . '.edit', compact('post', 'types', 'catePost'));
     }
 
     /**

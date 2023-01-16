@@ -61,6 +61,15 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="category" class="form-label">Category:</label>
+                        <select name="category_id" class="form-control" id="category">
+                            <option value="">-- Select Category --</option>
+                                @foreach($catePost as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                        </select>
+                    </div>
                     <div class="form-group" style="width: calc(100% / 5); ">
                         <label for="post-image" class="border border-secondary px-5" style="width: 70%; text-align: center;">Image <i class="nav-icon fas fa-plus"></i></label>
                         <input type="file" hidden id="post-image" class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
