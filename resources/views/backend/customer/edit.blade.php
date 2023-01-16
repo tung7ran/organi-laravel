@@ -18,7 +18,7 @@
     </section>
 
     <!-- Main content -->
-    {{ Form::open(array('route' => ['customers.update', $data->id], 'method' => 'PUT')) }}
+    {{ Form::open(array('route' => ['customers.update', $customer->id], 'method' => 'PUT')) }}
     <section class="content">
         <div class="row">
             <div class="col-md-12">
@@ -35,19 +35,19 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputName">Tên</label>
-                            <input type="text" id="inputName" name="name" class="form-control" value="{{ $data->name }}">
+                            <input type="text" id="inputName" name="name" class="form-control" value="{{ $customer->name }}">
                         </div>
                         <div class="form-group">
                             <label for="inputName">Số điện thoại</label>
-                            <input type="text" id="inputName" name="phone" class="form-control" value="{{ $data->phone }}">
+                            <input type="text" id="inputName" name="phone" class="form-control" value="{{ $customer->phone }}">
                         </div>
                         <div class="form-group">
                             <label for="inputName">email</label>
-                            <input type="text" id="inputName" name="email" class="form-control" value="{{ $data->email }}">
+                            <input type="text" id="inputName" name="email" class="form-control" value="{{ $customer->email }}">
                         </div>
                         <div class="form-group">
                             <label for="inputName">address</label>
-                            <input type="text" id="inputName" name="address" class="form-control" value="{{ $data->address }}">
+                            <input type="text" id="inputName" name="address" class="form-control" value="{{ $customer->address }}">
                         </div>
                     </div>
                     <!-- /.card-body -->
