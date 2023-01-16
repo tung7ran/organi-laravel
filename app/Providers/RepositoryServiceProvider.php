@@ -26,6 +26,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\UserRepository::class, \App\Repositories\UserRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\PostRepository::class, \App\Repositories\PostRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\ProductRepository::class, \App\Repositories\ProductRepositoryEloquent::class);
+
+        $this->app->bind(\App\Repositories\PagesRepository::class, \App\Repositories\PagesRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\ProductCategoryRepository::class, \App\Repositories\ProductCategoryRepositoryEloquent::class);
 
         $this->app->bind(\App\Repositories\PostCategoryRepository::class, \App\Repositories\PostCategoryRepositoryEloquent::class);
@@ -33,4 +35,4 @@ class RepositoryServiceProvider extends ServiceProvider
 
         //:end-bindings:
     }
-}
+} 
