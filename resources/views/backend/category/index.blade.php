@@ -2,7 +2,7 @@
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <!-- Content Header (Page header) -->
-<section class="content-header container">
+<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -19,7 +19,7 @@
 </section>
 
 <!-- Main content -->
-<section class="content container">
+<section class="content">
 
     <!-- Default box -->
     <div class="card">
