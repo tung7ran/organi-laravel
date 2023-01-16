@@ -10,16 +10,17 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repositories\ProductRepository;
 use App\Validators\ProductValidator;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\File as File2;
 use App\Models\Product;
+
 
 /**
  * Class ProductsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class ProductsController extends Controller
-{
+class ProductsController extends Controller {
     /**
      * @var ProductRepository
      */
@@ -38,6 +39,7 @@ class ProductsController extends Controller
      * @param ProductRepository $repository
      * @param ProductValidator $validator
      */
+
     public function __construct(ProductRepository $repository, ProductValidator $validator, Product $product)
     {
         $this->repository = $repository;
@@ -51,14 +53,16 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
+
         $data  = $this->repository->paginate(request()->all());
-        return view($this->partView. '.index', compact('data'));
+        return view($this->partView . '.index', compact('data'));
     }
-    public function create()
-    {
-        return view($this->partView . '.create');
+    public function create() {
+        $category = ProductCategory::all();
+        return view($this->partView . '.create', compact('category'));
     }
     /**
      * Store a newly created resource in storage.
@@ -77,13 +81,14 @@ class ProductsController extends Controller
             $input['slug']          = $request->input('slug');
             $input['price']         = $request->input('price');
             $input['sale_price']    = $request->input('sale_price');
-            $input['desc']          = $request->DESC;
-            $input['content']       = $request->CONTENT;
+            $input['desc']          = $request->desc;
+            $input['content']       = $request->content;
+            $input['productCat_id'] = $request->productCat_id;
 
-            if($request->hasfile('image')){
+            if ($request->hasfile('image')) {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $file_image = time().'.'.$extension;
+                $file_image = time() . '.' . $extension;
                 $file->move('uploads/images/', $file_image);
                 $input['image'] = $file_image;
             }
@@ -144,6 +149,7 @@ class ProductsController extends Controller
      */
     public function edit($id) {
         $product = $this->repository->find($id);
+
         $list_images = $this->product->all('more_image');
         return view($this->partView . '.edit', compact('product', 'list_images'));
     }
@@ -234,5 +240,4 @@ class ProductsController extends Controller
 
         return redirect()->back()->with('message', trans('messages.delete_success'));
     }
-
 }

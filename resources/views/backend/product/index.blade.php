@@ -23,7 +23,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh sách sản </h3>
+            <h3 class="card-title">Danh sách sản phẩm</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="card-body p-0" style="overflow-x:auto;">
-            <table class="table table-striped projects">
+            <table class="table table-bordered projects">
                 <thead>
                     <tr>
                         <th>
@@ -55,8 +55,12 @@
                         </th>
                         <th>Price</th>
                         <th>Sale Price</th>
+                        <th>Category</th>
                         <th>
                             Image
+                        </th>
+                        <th>
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -74,7 +78,7 @@
                         <td>{{ $value['content'] }}</td>
                         <td>{{ $value['price'] }}</td>
                         <td>{{ $value['sale_price'] }}</td>
-
+                        <td>{{ $value['productCat_id'] }}</td>
                         <td>
                            <img src="{{ asset('uploads/images/'.$value->image) }}" alt="" class="table-avatar rounded-0">
                         </td>

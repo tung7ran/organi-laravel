@@ -63,6 +63,7 @@
                         <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ $product->image }}" onchange="loadFile(this)">
                         <div class="preview-image">
                             <img id="output" alt="" style="width: 20%; margin: 0 auto;">
+
                         </div>
                     </div>
                     <div class="form-group">

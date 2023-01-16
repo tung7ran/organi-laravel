@@ -1,7 +1,7 @@
 @extends('backend.layout.app')
 @section('content')
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<section class="content-header container">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -221,6 +221,7 @@
                                         <input type="hidden" name="gallery[]" value="{{ @$item }}">
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

@@ -33,7 +33,7 @@
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-user"></i>
                     <p>
                         Quản lý User
                         <i class="fas fa-angle-left right"></i>
@@ -56,7 +56,30 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-gifts"></i>
+                    <p>
+                        Quản lý loại mặt hàng
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('category.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách mặt hàng</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('category.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm loại mặt hàng</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-gift"></i>
                     <p>
                         Quản lý khách hàng
                         <i class="fas fa-angle-left right"></i>
@@ -102,7 +125,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-newspaper"></i>
                     <p>
                         Quản lý tin tức
                         <i class="fas fa-angle-left right"></i>
@@ -125,7 +148,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-cart-plus"></i>
                     <p>
                         Quản lý danh mục tin tức
                         <i class="fas fa-angle-left right"></i>
@@ -171,7 +194,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-share "></i>
                     <p>
                         Quản lý phân quyền
                         <i class="fas fa-angle-left right"></i>
@@ -194,7 +217,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-brush"></i>
                     <p>
                         Themes option
                         <i class="fas fa-angle-left right"></i>
@@ -211,7 +234,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-comment"></i>
                     <p>
                         Phản hồi
                         <i class="fas fa-angle-left right"></i>
@@ -222,6 +245,29 @@
                         <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách phản hồi</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-pager"></i>
+                    <p>
+                        Quản lý trang
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('pages.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách các trang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('pages.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm trang mới</p>
                         </a>
                     </li>
                 </ul>
