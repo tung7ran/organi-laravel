@@ -21,66 +21,7 @@
 {{ Form::open(array('route' => 'post.store', 'enctype' => 'multipart/form-data')) }}
 
 <section class="content">
-    <!-- <div class="row">
-        <div class="col-md-12">
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Add Post</h3>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="post-name">Name</label>
-                        <input type="text" id="post-name" class="form-control" name="name" value="{{ old('name') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="post-slug">Slug</label>
-                        <input type="text" id="post-slug" class="form-control" name="slug" value="{{ old('slug') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" class="form-control" rows="4" name="desc" value="{{ old('desc') }}"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="content">Content</label>
-                        <textarea id="content" class="form-control" rows="4" name="content" value="{{ old('content') }}"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="post-type">Type</label>
-                        <select id="post-type" class="form-control custom-select" name="type">
-                            <option selected disabled>Select one</option>
-                            @foreach (\App\Models\Post::$postType as $key => $value)
-                            <option value="{{ $key }}">
-                                {{ $value }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="category" class="form-label">Category:</label>
-                        <select name="category_id" class="form-control" id="category">
-                            <option value="">-- Select Category --</option>
-                                @foreach($catePost as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group" style="width: calc(100% / 5); ">
-                        <label for="post-image" class="border border-secondary px-5" style="width: 70%; text-align: center;">Image <i class="nav-icon fas fa-plus"></i></label>
-                        <input type="file" hidden id="post-image" class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
-                        <div class="preview-image">
-                            <img id="output" alt="" style="width: 100%;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="row">
         <div class="col-sm-9">
             <div class="nav-tabs-custom">
@@ -98,19 +39,19 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Tiêu đề</label>
-                                    <input type="text" class="form-control" name="title" id="title">
+                                    <input type="text" id="post-name" class="form-control" name="name" value="{{ old('name') }}">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Mô tả ngắn</label>
-                                    <textarea class="form-control" id="editor_desc" name="desc" rows="4"></textarea>
+                                    <textarea class="form-control" id="editor_desc" name="desc" rows="4" value="{{ old('desc') }}"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Nội dung</label>
-                                    <textarea name="content" id="editor_desc_product" class="form-control" rows="4"></textarea>
+                                    <textarea name="content" id="editor_desc_product" class="form-control" rows="4" value="{{ old('content') }}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -148,14 +89,14 @@
                     <h3 class="box-title">Đăng bài viết</h3>
                 </div>
                 <div class="box-body">
-                    <div class="form-group">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" class="form-control" name="status" value="1" checked> <span>Hiển thị</span>
-                        </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox" class="form-control" name="hot" value="1"> <span>Nổi bật</span>
-                        </label>
-                    </div>
+
+                    @foreach(\App\Models\Post::$postType as $key => $value)
+                        <div class="form-group">
+                            <label >
+                                <input name="type" type="checkbox" class="fomr-control" value="{{ $key }}" ><span>{{ $value }}</span>
+                            </label>
+                        </div>
+                    @endforeach
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại bài viết</button>
                     </div>
@@ -166,11 +107,13 @@
                     <h3 class="box-title">Danh mục bài viết</h3>
                 </div>
                 <div class="box-body checkboxlist">
+                    @foreach($catePost as $item)
                     <div class="form-group">
                         <label class="custom-checkbox">
-                            <input type="checkbox" class="fomr-control"><span> Fresh Berries</span>
+                            <input name="category_id" type="checkbox" class="fomr-control" value="{{ $item->id }}"><span>{{ $item->name }}</span>
                         </label>
                     </div>
+                    @endforeach
                 </div>
             </div>
             <div class="box box-success">
