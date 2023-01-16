@@ -25,10 +25,11 @@
     <link rel="stylesheet" href="{{ url('backend/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('backend/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('backend/plugins/assets/create.css') }}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
     <link rel="stylesheet" href="{{ url('backend/custom/custom.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -97,5 +98,12 @@
 <script src="{{ url('backend/plugins/ckfinder/ckfinder.js') }}"></script>
 <script src="{{ url('backend/dist/js/pages/dashboard.js') }}"></script>
 <script src="{{ url('backend/custom/custom.js') }}"></script>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+CKEDITOR.replace('editor_desc');
+CKEDITOR.replace('editor_desc_manual');
+CKEDITOR.replace('editor_desc_product');
+CKEDITOR.replace('editor_element');
+</script>
 </body>
 </html>
