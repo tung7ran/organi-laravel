@@ -42,16 +42,19 @@
                             STT
                         </th>
                         <th>
-                            Avatar
+                            Username
+                        </th>
+                        <th>
+                            Tên người dùng
+                        </th>
+                        <th>
+                            Số điện thoại
                         </th>
                         <th>
                             Email
                         </th>
                         <th>
-                            Fullname
-                        </th>
-                        <th>
-                            phone
+                            Trạng thái
                         </th>
                     </tr>
                     </thead>
@@ -62,9 +65,6 @@
                             {{ $key + 1 }}
                         </td>
                         <td>
-                            #
-                        </td>
-                        <td>
                             {{ $value['email'] }}
                         </td>
                         <td>
@@ -72,6 +72,16 @@
                         </td>
                         <td>
                             {{ $value['phone'] }}
+                        </td>
+                        <td>
+                            {{ $value['email'] }}
+                        </td>
+                        <td>
+                            @if ($value->status == 1 )
+                                <span class="label label-success">Đang hoạt động</span>
+                            @else
+                                <span class="label label-danger">Đang khóa</span>
+                            @endif
                         </td>
                         <td class="project-actions text-right">
                             <a class="btn btn-primary btn-sm" href="#">

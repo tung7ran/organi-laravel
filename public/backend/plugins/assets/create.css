@@ -55,4 +55,20 @@
 
 #setting .form-group label {
   font-size: 14px;
+}
+
+.label-success {
+  background-color: #00a65a;
+  font-size: 12px;
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.label-danger {
+  background-color: #c9302c;
+  font-size: 12px;
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 4px;
 }/*# sourceMappingURL=create.css.map */
