@@ -150,13 +150,9 @@
                           <span>All departments</span>
                       </div>
                       <ul>
-                          <li>a</li>
-                          <li>a</li>
-                          <li>a</li>
-                          <li>a</li>
-                          <li>a</li>
-                          <li>a</li>
-
+                          @foreach($category as $item)
+                          <li>{{ $item->name }}</li>
+                          @endforeach
                       </ul>
                   </div>
               </div>
