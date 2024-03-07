@@ -53,6 +53,7 @@ class PostsController extends Controller
 
     public function create()
     {
+
         $catePost = PostCategory::all();
         return view($this->partView . '.create', compact('catePost'));
     }
@@ -137,7 +138,7 @@ class PostsController extends Controller
         $post = $this->repository->find($id);
         $types = $post->type;
         $catePost = PostCategory::all();
-       
+
         return view($this->partView . '.edit', compact('post', 'types', 'catePost'));
     }
 

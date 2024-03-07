@@ -21,78 +21,6 @@
 {{ Form::open(array('route' => 'product.store', 'enctype' => 'multipart/form-data')) }}
 
 <section class="content">
-    <!-- <div class="row">
-        <div class="col-md-12">
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Product</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="product_name">Product Name</label>
-                        <input type="text" id="product_name" class="form-control" name="name" value="{{ old('name') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" id="price" class="form-control" name="price" value="{{ old('price') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="sale_price">Sale Price</label>
-                        <input type="number" id="sale_price" class="form-control" name="sale_price" value="{{ old('sale_price') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="product_desc">Project Description</label>
-                        <textarea id="product_desc" class="form-control" rows="4" name="desc" value="{{ old('desc') }}"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="product_content">Project Content</label>
-                        <textarea id="product_content" class="form-control" rows="4" name="content" value="{{ old('content') }}"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Ảnh nội dung(ảnh upload không quá 2MB):</label>
-                        <label role="button" class="border border-secondary px-3" for="product_img">Image <i class="nav-icon fas fa-plus"></i></label>
-                        <input type="file" id="product_img" hidden class="form-control" name="image" value="{{ old('image') }}" onchange="loadFile(this)">
-                        <div class="preview-image">
-                            <img id="output" alt="" style="width: 100%;">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="product_content">Ảnh Gallery(ảnh upload không quá 2MB)</label>
-                        <div id="gallery">
-                            <button type="button" class="btn btn-success" onclick="fileMultiSelect(this)"><i class="fa fa-upload"></i>
-                                Chọn hình ảnh
-                            </button>
-                            <br><br>
-                            <div class="image__gallery">
-                                @if (!empty($data->more_image))
-                                <?php $more_image = json_decode($data->more_image) ?>
-                                @foreach ($more_image as $item)
-                                <div class="image__thumbnail image__thumbnail--style-1">
-                                    <img src="{{ @$item }}">
-                                    <a href="javascript:void(0)" class="image__delete" onclick="urlFileMultiDelete(this)">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                    <input type="hidden" name="gallery[]" value="{{ @$item }}">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="row">
         <div class="col-sm-9">
             <div class="nav-tabs-custom">
@@ -113,31 +41,31 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Tên sản phẩm</label>
-                                    <input type="text" class="form-control" name="name" id="name">
+                                    <input type="text" id="product_name" class="form-control" name="name" value="{{ old('name') }}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Giá bán</label>
-                                    <input type="number" min="0" name="price" class="form-control">
+                                    <input type="number" id="price" class="form-control" name="price" value="{{ old('price') }}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Giá khuyến mại ( Nếu có )</label>
-                                    <input type="number" min="0" name="sale_price" class="form-control">
+                                    <input type="number" id="sale_price" class="form-control" name="sale_price" value="{{ old('sale_price') }}">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Mô tả ngắn</label>
-                                    <textarea class="form-control" id="editor_desc" name="desc" rows="5"></textarea>
+                                    <textarea class="form-control" id="editor_desc" name="desc" rows="5" value="{{ old('desc') }}"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-9">
                                 <div class="form-group">
                                     <label for="">Mô tả sản phẩm</label>
-                                    <textarea name="content" id="editor_desc_product" class="form-control" rows="5"></textarea>
+                                    <textarea name="content" id="editor_desc_product" class="form-control" rows="5" value="{{ old('content') }}"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -279,12 +207,13 @@
                     <h3 class="box-title">Danh mục sản phẩm</h3>
                 </div>
                 <div class="box-body checkboxlist">
-                    <div class="form-group">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" class="fomr-control"><span> Fresh Berries</span>
-                        </label>
-                    </div>
-
+                    @foreach($category as $item)
+                        <div class="form-group">
+                            <label >
+                                <input name="productCat_id" type="checkbox" class="fomr-control" value="{{ $item->id }}" ><span>{{ $item->name }}</span>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <div class="box box-success">

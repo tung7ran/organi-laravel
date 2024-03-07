@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'Admin'], function () {
+Route::group(['namespace' => 'Frontend'], function () {
+    Route::get('/', 'IndexController@index')->name('home.index');
+});
 
+Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'backend', 'middleware' => 'auth'], function () {
         Route::get('/home', 'HomeController@index')->name('backend.home');
         Route::resource('user', 'UsersController');
